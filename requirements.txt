@@ -6,3 +6,4 @@ faiss-cpu
 tiktoken
 python-dotenv
 streamlit
+langchain-text-splitters
