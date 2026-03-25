@@ -1,5 +1,6 @@
 import streamlit as st
 from dotenv import load_dotenv
+import os
 
 load_dotenv()
 
@@ -10,11 +11,31 @@ from langchain_community.vectorstores import FAISS
 embeddings = OpenAIEmbeddings()
 
 # cargar base vectorial
-vectorstore = FAISS.load_local(
-    "vector_db",
-    embeddings,
-    allow_dangerous_deserialization=True
-)
+if os.path.exists("vector_db"):
+
+    vectorstore = FAISS.load_local(
+        "vector_db",
+        embeddings,
+        allow_dangerous_deserialization=True
+    )
+
+else:
+    from langchain_community.document_loaders import DirectoryLoader
+    from langchain.text_splitter import RecursiveCharacterTextSplitter
+
+    loader = DirectoryLoader("docs")
+    documents = loader.load()
+
+    text_splitter = RecursiveCharacterTextSplitter(
+        chunk_size=500,
+        chunk_overlap=50
+    )
+
+    texts = text_splitter.split_documents(documents)
+
+    vectorstore = FAISS.from_documents(texts, embeddings)
+
+    vectorstore.save_local("vector_db")
 
 retriever = vectorstore.as_retriever()
 
