@@ -109,3 +109,7 @@ streamlit run app.py
 ## 🎯 Objetivo del proyecto
 
 Este proyecto fue desarrollado como una demostración práctica de cómo construir un sistema basado en LLMs utilizando RAG, aplicando buenas prácticas para mejorar la precisión y confiabilidad de las respuestas.
+
+## 🌐 Demo online
+
+🔗 https://hotel-ai-concierge.streamlit.app/
