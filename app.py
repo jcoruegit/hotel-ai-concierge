@@ -21,9 +21,10 @@ if os.path.exists("vector_db"):
 
 else:
     from langchain_community.document_loaders import DirectoryLoader
+    from langchain_community.document_loaders import TextLoader
     from langchain_text_splitters import RecursiveCharacterTextSplitter
 
-    loader = DirectoryLoader("docs")
+    loader = DirectoryLoader("docs", loader_cls=TextLoader)
     documents = loader.load()
 
     text_splitter = RecursiveCharacterTextSplitter(

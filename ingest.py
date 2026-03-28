@@ -3,14 +3,14 @@ import os
 
 load_dotenv()
 
-from langchain_community.document_loaders import DirectoryLoader
+from langchain_community.document_loaders import DirectoryLoader, TextLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_openai import OpenAIEmbeddings
 from langchain_community.vectorstores import FAISS
 import os
 
 # Cargar documentos desde la carpeta docs
-loader = DirectoryLoader("docs")
+loader = DirectoryLoader("docs", loader_cls=TextLoader)
 documents = loader.load()
 
 print(f"Documentos cargados: {len(documents)}")
